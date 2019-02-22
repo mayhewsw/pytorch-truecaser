@@ -3,7 +3,7 @@
 This is a simple neural truecaser written with allennlp, and based loosely on [Susanto et al, 2016](https://aclweb.org/anthology/D16-1225). They have an
 implementation [here](https://gitlab.com/raymondhs/char-rnn-truecase), but being written in Lua, it's a little hard to use. 
 
-We provide a [pre-trained model]() that can be used for truecasing English right out of the box. This model is trained on the [standard Wikipedia data split](http://www.cs.pomona.edu/~dkauchak/simplification/data.v1/data.v1.split.tar.gz) from (Coster and Kauchak, 2011), and achieves an F1 score of **93.43** on test. This is comparable to the best F1 of (Susanto et al 2016) of **93.19**.
+We provide a [pre-trained model](https://github.com/mayhewsw/pytorch-truecaser/releases/tag/v1.0) that can be used for truecasing English right out of the box. This model is trained on the [standard Wikipedia data split](http://www.cs.pomona.edu/~dkauchak/simplification/data.v1/data.v1.split.tar.gz) from (Coster and Kauchak, 2011), and achieves an F1 score of **93.43** on test. This is comparable to the best F1 of (Susanto et al 2016) of **93.19**.
 
 ### Requirements
 
@@ -23,6 +23,14 @@ dropout of 0.25.
 If you just want to predict, you can run:
 ```bash
 $ allennlp predict wiki-truecaser-model.tar.gz test.txt -o test-out.txt --include-package mylib --use-dataset-reader --silent
+```
+
+To use it programmatically (in python),
+
+```python
+from allennlp.predictors.predictor import Predictor
+predictor = Predictor.from_path("https://github.com/mayhewsw/pytorch-truecaser/releases/download/v1.0/wiki-truecaser-model.tar.gz")
+predictor.predict(sentence="Tank Carradine has officially become a Dolphin in Miami.")
 ```
 
 
