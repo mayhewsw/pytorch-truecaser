@@ -5,11 +5,15 @@ from allennlp.data import DatasetReader, Instance
 from allennlp.data.tokenizers.word_splitter import JustSpacesWordSplitter
 from allennlp.models import Model
 from allennlp.predictors.predictor import Predictor
+from allennlp.data.tokenizers import Token
 
 
 @Predictor.register('truecaser-predictor')
 class MySentenceTaggerPredictor(Predictor):
     """
+    This is basically a copy of the SentenceTagger from allennlp. It is
+    modified to dump output in a more sensible manner.
+
     Predictor for any model that takes in a sentence and returns
     a single set of tags for it.  In particular, it can be used with
     the :class:`~allennlp.models.crf_tagger.CrfTagger` model
