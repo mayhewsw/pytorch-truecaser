@@ -29,7 +29,7 @@ To use it programmatically (in python),
 
 ```python
 from allennlp.predictors.predictor import Predictor
-predictor = Predictor.from_path("https://github.com/mayhewsw/pytorch-truecaser/releases/download/v1.0/wiki-truecaser-model.tar.gz")
+predictor = Predictor.from_path("wiki-truecaser-model.tar.gz")
 predictor.predict(sentence="Jared Smith lives in Paris .")
 ```
 
