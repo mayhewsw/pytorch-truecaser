@@ -9,7 +9,7 @@ from allennlp.data.tokenizers import Token
 
 
 @Predictor.register('truecaser-predictor')
-class MySentenceTaggerPredictor(Predictor):
+class TruecaserPredictor(Predictor):
     """
     This is basically a copy of the SentenceTagger from allennlp. It is
     modified to dump output in a more sensible manner.
@@ -25,6 +25,10 @@ class MySentenceTaggerPredictor(Predictor):
         self._tokenizer = JustSpacesWordSplitter()
         self.model = model
 
+    def predict(self, sent):
+        js = {"sentence" : sent}
+        return self.predict_instance(self._json_to_instance(js))
+        
     def predict_instance(self, sent: Instance) -> JsonDict:
         output = super().predict_instance(sent)
         #output["chars"] = sent["tokens"]
