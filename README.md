@@ -22,7 +22,7 @@ dropout of 0.25.
 
 If you just want to predict, you can run:
 ```bash
-$ allennlp predict wiki-truecaser-model.tar.gz test.txt -o test-out.txt --include-package mylib --use-dataset-reader --silent
+$ allennlp predict wiki-truecaser-model.tar.gz test.txt --output-file test-out.txt --include-package mylib --use-dataset-reader --silent --predictor truecaser-predictor
 ```
 
 To use it programmatically (in python),
