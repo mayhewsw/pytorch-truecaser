@@ -25,13 +25,9 @@ If you just want to predict, you can run:
 $ allennlp predict wiki-truecaser-model.tar.gz data/test.txt --output-file test-out.txt --include-package mylib --use-dataset-reader --predictor truecaser-predictor
 ```
 
-To use it programmatically (in python),
+Where `data/test.txt` is a file with one sentence per line.
 
-```python
-from allennlp.predictors.predictor import Predictor
-predictor = Predictor.from_path("wiki-truecaser-model.tar.gz")
-predictor.predict(sentence="Jared Smith lives in Paris .")
-```
+See `example.py` for an example of how to use it programmatically.
 
 
 #### Training
