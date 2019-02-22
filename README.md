@@ -3,12 +3,20 @@
 This is a simple neural truecaser written with allennlp, and based loosely on [Susanto et al, 2016](https://aclweb.org/anthology/D16-1225). They have an
 implementation [here](https://gitlab.com/raymondhs/char-rnn-truecase), but being written in Lua, it's a little hard to use. 
 
-We provide a [pre-trained model]() that can be used for truecasing English right out of the box. This model is trained on the [standard Wikipedia data split](http://www.cs.pomona.edu/~dkauchak/simplification/data.v1/data.v1.split.tar.gz) from (Coster and Kauchak, 2011), and achieves an F1 score of ?? on test. This is comparable to the best F1 of (Susanto et al 2016) of **93.19**.
+We provide a [pre-trained model]() that can be used for truecasing English right out of the box. This model is trained on the [standard Wikipedia data split](http://www.cs.pomona.edu/~dkauchak/simplification/data.v1/data.v1.split.tar.gz) from (Coster and Kauchak, 2011), and achieves an F1 score of **93.43** on test. This is comparable to the best F1 of (Susanto et al 2016) of **93.19**.
 
 ### Requirements
 
 * python (3.6)
 * [allennlp](https://github.com/allenai/allennlp/) (0.8.1)
+
+### Model
+This model treats each sentence as a sequence of characters (spaces are included in the sequence). Each character takes a binary label
+of "U" if uppercase and "L" if lowercase. For example, the word `tRuEcasIng` would take the labels `LULULLLULL`
+
+We encode the sequence using a bidirectional LSTM with 2 hidden layers, 50 dimensional character embeddings (input), 150 dimensional hidden size, and
+dropout of 0.25. 
+
 
 ### Usage
 
