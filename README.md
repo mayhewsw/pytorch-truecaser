@@ -39,7 +39,15 @@ The dataset reader requires text that has one sentence per line. The model expec
 (the Wiki data is), then you can use `just_spaces` as the `word_splitter` in the config. If you want to tokenize text first,
 you can use `spacy`.
 
-To train, set the values of train, validation, and test in `truecaser.config` and run:
+You can get the Wikipedia data by running:
+``bash
+$ cd data
+$ ./get_data.sh
+```
+
+Run:
 ```bash
 $ allennlp train truecaser.json --include-package mylib -s /path/to/save/model/
 ```
+
+If you have a GPU, set `cuda_device` to 0 in `truecaser.json`. This will make training much faster.

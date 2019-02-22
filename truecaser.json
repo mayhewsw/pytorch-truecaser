@@ -10,9 +10,9 @@
       "type": "just_spaces"
     }
   },
-  "train_data_path": "/save/mayhew2/wiki/data.v1.split/normal.training.txt",
-  "validation_data_path": "/save/mayhew2/wiki/data.v1.split/normal.tuning.txt",
-  "test_data_path": "/save/mayhew2/wiki/data.v1.split/normal.testing.txt",
+  "train_data_path": "data/data.v1.split/normal.training.txt",
+  "validation_data_path": "data/data.v1.split/normal.tuning.txt",
+  "test_data_path": "data/data.v1.split/normal.testing.txt",
   "evaluate_on_test" : true,
   "model": {
     "type": "truecaser",
@@ -48,6 +48,6 @@
     "num_epochs": 75,
     "grad_norm": 5.0,
     "patience": 25,
-    "cuda_device": 0
+    "cuda_device": -1
   }
 }
