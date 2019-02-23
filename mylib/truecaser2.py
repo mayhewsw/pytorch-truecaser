@@ -4,6 +4,7 @@ from overrides import overrides
 
 from allennlp.data import Vocabulary
 from allennlp.modules import Seq2SeqEncoder, TextFieldEmbedder
+from allennlp.models.model import Model
 from allennlp.models.simple_tagger import SimpleTagger
 from allennlp.nn import InitializerApplicator, RegularizerApplicator
 from allennlp.training.metrics import F1Measure
