@@ -13,12 +13,6 @@ class TruecaserPredictor(Predictor):
     """
     This is basically a copy of the SentenceTagger from allennlp. It is
     modified to dump output in a more sensible manner.
-
-    Predictor for any model that takes in a sentence and returns
-    a single set of tags for it.  In particular, it can be used with
-    the :class:`~allennlp.models.crf_tagger.CrfTagger` model
-    and also
-    the :class:`~allennlp.models.simple_tagger.SimpleTagger` model.
     """
     def __init__(self, model: Model, dataset_reader: DatasetReader) -> None:
         super().__init__(model, dataset_reader)
@@ -28,7 +22,7 @@ class TruecaserPredictor(Predictor):
     def predict(self, sent):
         js = {"sentence" : sent}
         return self.predict_instance(self._json_to_instance(js))
-        
+
     def predict_instance(self, sent: Instance) -> JsonDict:
         output = super().predict_instance(sent)
         #output["chars"] = sent["tokens"]
