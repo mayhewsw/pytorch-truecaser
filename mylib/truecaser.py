@@ -15,7 +15,7 @@ from allennlp.nn.util import get_text_field_mask, sequence_cross_entropy_with_lo
 from allennlp.training.metrics import CategoricalAccuracy, F1Measure
 
 
-@Model.register("truecaser")
+@Model.register("truecaser-old")
 class TrueCaser(Model):
     """
     Basically just the simple tagger but with f1 measure.
