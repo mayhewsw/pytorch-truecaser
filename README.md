@@ -3,8 +3,7 @@
 This is a simple neural truecaser written with allennlp, and based loosely on [Susanto et al, 2016](https://aclweb.org/anthology/D16-1225). They have an
 implementation [here](https://gitlab.com/raymondhs/char-rnn-truecase), but being written in Lua, it's a little hard to use.
 
-We provide a [pre-trained model](https://github.com/mayhewsw/pytorch-truecaser/releases/tag/v1.0) that can be used for truecasing English right out of the box. This model is trained on the [standard Wikipedia data split](http://www.cs.pomona.edu/~dkauchak/simplification/data.v1/data.v1.split.tar.gz) from (Coster and Kauchak, 2011), and achieves an F1 score of **93.43** on test. This is comparable to the best F1 of (Susanto et al 2016) of **93.19**.
-
+We provide a [pre-trained models](https://github.com/mayhewsw/pytorch-truecaser/releases/tag/v1.0) that can be used for truecasing English and German right out of the box. The English model is trained on the [standard Wikipedia data split](http://www.cs.pomona.edu/~dkauchak/simplification/data.v1/data.v1.split.tar.gz) from (Coster and Kauchak, 2011), and achieves an F1 score of **93.01** on test. This is comparable to the best F1 of (Susanto et al 2016) of **93.19**.
 
 ### Requirements
 
@@ -17,6 +16,16 @@ of "U" if uppercase and "L" if lowercase. For example, the word `tRuEcasIng` wou
 
 We encode the sequence using a bidirectional LSTM with 2 hidden layers, 50 dimensional character embeddings (input), 150 dimensional hidden size, and dropout of 0.25.
 
+### Scoring
+A cautionary note is in order. The pytorch model optimizes for _character level_ F1 score, but it is more common to measure
+on the _word level_. So, after training a model, get a comparable score using `word_eval.py` (which I copied from [here](https://gitlab.com/raymondhs/char-rnn-truecase/blob/master/word_eval.py))
+
+For example, to score on the Wiki test data:
+
+```bash
+$ allennlp predict wiki-truecaser-model.tar.gz data/data.v1.split/normal.testing.txt --use-dataset-reader --output-file out_preds.txt --include-package mylib --predictor truecaser-predictor
+$ python word_eval.py data/data.v1.split/normal.testing.txt out_preds.txt
+```
 
 ### Usage
 
@@ -47,7 +56,3 @@ $ allennlp train truecaser.json --include-package mylib -s /path/to/save/model/
 ```
 
 If you have a GPU, set `cuda_device` to 0 in `truecaser.json`. This will make training much faster.
-
-#### How much data do you need?
-If you train on the Wikipedia corpus (2.9M tokens), you can get ~93F1 on the Wikipedia test.
-If you train on the CoNLL 2003 English NER dataset (200K tokens), you get ~? on Wikipedia test.
