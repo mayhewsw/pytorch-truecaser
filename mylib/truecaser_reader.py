@@ -1,4 +1,4 @@
-from typing import Iterator, List
+from typing import Iterator, List, Dict
 from allennlp.data.fields import TextField, SequenceLabelField
 from allennlp.data.token_indexers import TokenIndexer, SingleIdTokenIndexer
 from allennlp.data.tokenizers import Token
@@ -6,6 +6,8 @@ from allennlp.commands.train import *
 from nltk.corpus.util import LazyCorpusLoader
 from nltk.corpus.reader import *
 from allennlp.data.tokenizers.word_splitter import WordSplitter,SpacyWordSplitter
+from allennlp.data.dataset_readers import DatasetReader
+from allennlp.data.instance import Instance
 
 @DatasetReader.register("truecaser_reader")
 class TrueCaserDatasetReader(DatasetReader):

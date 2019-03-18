@@ -8,7 +8,7 @@ We provide [pre-trained models](https://github.com/mayhewsw/pytorch-truecaser/re
 ### Requirements
 
 * python (3.6)
-* [allennlp](https://github.com/allenai/allennlp/) (0.8.1)
+* [allennlp](https://github.com/allenai/allennlp/) (0.8.2)
 
 ### Model
 This model treats each sentence as a sequence of characters (spaces are included in the sequence). Each character takes a binary label
