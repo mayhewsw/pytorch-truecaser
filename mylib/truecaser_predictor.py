@@ -2,7 +2,6 @@ from overrides import overrides
 from typing import List
 from allennlp.common.util import JsonDict
 from allennlp.data import DatasetReader, Instance
-from allennlp.data.tokenizers.word_splitter import JustSpacesWordSplitter
 from allennlp.models import Model
 from allennlp.predictors.predictor import Predictor
 from allennlp.data.tokenizers import Token
@@ -16,7 +15,6 @@ class TruecaserPredictor(Predictor):
     """
     def __init__(self, model: Model, dataset_reader: DatasetReader) -> None:
         super().__init__(model, dataset_reader)
-        self._tokenizer = JustSpacesWordSplitter()
         self.model = model
 
     def predict(self, sent):
@@ -27,7 +25,23 @@ class TruecaserPredictor(Predictor):
     def predict_instance(self, sent: Instance) -> JsonDict:
         output = super().predict_instance(sent)
         #output["chars"] = sent["tokens"]
-        output["words"] = sent["tokens"].tokens
+        output["words"] = list(map(str, sent["tokens"].tokens))
+        print("OUTPUT HERE",output)
+
+        tags = output["tags"]
+        chars = output["words"]
+
+        # all chars are lower case by default.
+        out = []
+        for token,t in zip(chars,tags):
+            c = token
+            if t == "U":
+                c = c.upper()
+            out.append(c)
+
+        newsent = "".join(out)
+        output["pred"] = newsent
+
         return output
 
     @overrides
@@ -48,20 +62,8 @@ class TruecaserPredictor(Predictor):
         return {"sentence": line}
 
     def dump_line(self, outputs: JsonDict):
-        newd = {}
-        tags = outputs["tags"]
-        chars = outputs["words"]
-
-        # all chars are lower case by default.
-        out = []
-        for token,t in zip(chars,tags):
-            c = token.text
-            if t == "U":
-                c = c.upper()
-            out.append(c)
-
-        return "".join(out) + "\n"
-
+        return output["pred"] + "\n"
+        
     @overrides
     def _json_to_instance(self, json_dict: JsonDict) -> Instance:
         """
@@ -69,6 +71,5 @@ class TruecaserPredictor(Predictor):
         Runs the underlying model, and adds the ``"words"`` to the output.
         """
         sentence = json_dict["sentence"]
-        tokenized_sent = " ".join(map(str, self._tokenizer.split_words(sentence)))
-        chars = [Token(c) for c in tokenized_sent.lower()]
+        chars = [Token(c) for c in sentence.lower()]
         return self._dataset_reader.text_to_instance(chars)
