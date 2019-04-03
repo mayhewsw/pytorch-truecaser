@@ -12,7 +12,8 @@ from allennlp.data.instance import Instance
 class TrueCaserDatasetReader(DatasetReader):
 
     def __init__(self,
-                 token_indexers: Dict[str, TokenIndexer] = None) -> None:
+                 token_indexers: Dict[str, TokenIndexer] = None,
+		 word_splitter = None) -> None:
         super().__init__(lazy=False)
         self.token_indexers = token_indexers or {"tokens": SingleIdTokenIndexer()}
 
