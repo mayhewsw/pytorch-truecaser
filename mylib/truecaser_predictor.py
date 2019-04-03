@@ -26,7 +26,6 @@ class TruecaserPredictor(Predictor):
         output = super().predict_instance(sent)
         #output["chars"] = sent["tokens"]
         output["words"] = list(map(str, sent["tokens"].tokens))
-        print("OUTPUT HERE",output)
 
         tags = output["tags"]
         chars = output["words"]
@@ -48,7 +47,6 @@ class TruecaserPredictor(Predictor):
     def predict_batch_instance(self, sents: List[Instance]) -> List[JsonDict]:
         outputs = super().predict_batch_instance(sents)
         for i,sent in enumerate(sents):
-            #output["chars"] = sent["tokens"]
             outputs[i]["words"] = sent["tokens"].tokens
         return outputs
 
@@ -62,7 +60,7 @@ class TruecaserPredictor(Predictor):
         return {"sentence": line}
 
     def dump_line(self, outputs: JsonDict):
-        return output["pred"] + "\n"
+        return outputs["pred"] + "\n"
         
     @overrides
     def _json_to_instance(self, json_dict: JsonDict) -> Instance:

@@ -1,5 +1,7 @@
 ## Truecaser
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mayhewsw/pytorch-truecaser/master)
+
 This is a simple neural truecaser written with allennlp, and based loosely on ([Susanto et al, 2016](https://aclweb.org/anthology/D16-1225)). They have an
 implementation [here](https://gitlab.com/raymondhs/char-rnn-truecase), but being written in Lua, it's a little hard to use.
 
